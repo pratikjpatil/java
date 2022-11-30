@@ -153,8 +153,8 @@ public class RegistrationForm extends JFrame {
 					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users","root","admin");
 					String query="insert into registration values(?,?,?,?,?,?,?)";
 					PreparedStatement ps=con.prepareStatement(query);
-					ps.setString(1, txtName.getText());
-					ps.setInt(2, Integer.parseInt(txtStudentID.getText()));
+					ps.setInt(1, Integer.parseInt(txtStudentID.getText()));
+					ps.setString(2, txtName.getText());
 					ps.setString(3, txtAddr.getText());
 					if(rbMale.isSelected()) 
 						ps.setString(4, rbMale.getText());
@@ -165,8 +165,7 @@ public class RegistrationForm extends JFrame {
 					ps.setString(7, txtEmail.getText());
 					
 					
-					int i=ps.executeUpdate();
-					JOptionPane.showMessageDialog(btnRegister, i+"Record added successfully!");
+					JOptionPane.showMessageDialog(btnRegister, "Record added successfully!");
 					ps.close();
 					con.close();
 					
@@ -204,12 +203,12 @@ public class RegistrationForm extends JFrame {
 		contentPane.add(lblNewLabel_1);
 		
 		JButton btnSearch = new JButton("Search");
-		btnSearch.setForeground(new Color(255, 255, 255));
+		btnSearch.setForeground(new Color(64, 0, 0));
 		btnSearch.setBackground(new Color(128, 128, 128));
 		btnSearch.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				frame.setVisible(false);
 				frame.dispose();
 				Search srch = new Search();
 				srch.setVisible(true);
@@ -230,10 +229,18 @@ public class RegistrationForm extends JFrame {
 		txtStudentID.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Update Data");
-		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Search srch = new Search();
+				frame.setVisible(false);
+				frame.dispose();
+				srch.setVisible(true);
+			}
+		});
+		btnNewButton.setForeground(new Color(64, 0, 0));
 		btnNewButton.setBackground(new Color(128, 128, 128));
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnNewButton.setBounds(110, 624, 96, 25);
+		btnNewButton.setBounds(110, 624, 124, 25);
 		contentPane.add(btnNewButton);
 		
 		JLabel lblNewLabel_3 = new JLabel("+91");
@@ -242,35 +249,21 @@ public class RegistrationForm extends JFrame {
 		contentPane.add(lblNewLabel_3);
 		
 		JButton btnList = new JButton("Show list");
-		btnList.setForeground(new Color(255, 255, 255));
+		btnList.setForeground(new Color(64, 0, 0));
 		btnList.setBackground(new Color(128, 128, 128));
 		btnList.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
+				frame.dispose();
+				List lst = new List();
 				
-				
-				
-				String sql="select * from registration";
-				try {
-					Class.forName("com.mysql.cj.jdbc.Driver");
-					Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users","root","admin");
-					Statement st = conn.createStatement();
-					ResultSet rs = st.executeQuery(sql);
-					while(rs.next()) {
-						System.out.println(rs.getString(1)+" "+rs.getString(2)+" "+rs.getString(3)+" "+rs.getString(4)+" "+rs.getString(5)+" "+rs.getString(6));
-					}
-				}
-				catch(SQLException ex) {
-					ex.printStackTrace();
-				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				lst.setVisible(true);
 					
 		
 			}});
 		
-		btnList.setBounds(272, 623, 96, 26);
+		btnList.setBounds(280, 623, 96, 26);
 		contentPane.add(btnList);
 	
 }

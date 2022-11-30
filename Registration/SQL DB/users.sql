@@ -1,4 +1,14 @@
 create database users;
 use users;
-create table registration(name varchar(20),address varchar(50),gender char(10),age int, mobile varchar(20), email varchar(30), username varchar(20), password varchar(20));
+create table registration(
+	ID int NOT NULL PRIMARY KEY,
+    name varchar(30), 
+    address varchar(100),
+    gender char(10),
+    age int, 
+    mobile varchar(13), 
+    email varchar(30)
+    );
 desc registration;
+
+

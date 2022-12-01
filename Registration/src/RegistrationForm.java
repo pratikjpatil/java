@@ -153,8 +153,8 @@ public class RegistrationForm extends JFrame {
 					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users","root","admin");
 					String query="insert into registration values(?,?,?,?,?,?,?)";
 					PreparedStatement ps=con.prepareStatement(query);
-					ps.setInt(1, Integer.parseInt(txtStudentID.getText()));
 					ps.setString(2, txtName.getText());
+					ps.setInt(1, Integer.parseInt(txtStudentID.getText()));
 					ps.setString(3, txtAddr.getText());
 					if(rbMale.isSelected()) 
 						ps.setString(4, rbMale.getText());
@@ -165,13 +165,14 @@ public class RegistrationForm extends JFrame {
 					ps.setString(7, txtEmail.getText());
 					
 					
-					JOptionPane.showMessageDialog(btnRegister, "Record added successfully!");
+					int i=ps.executeUpdate();
+					JOptionPane.showMessageDialog(btnRegister, i+"Record added successfully!");
 					ps.close();
 					con.close();
 					
 					} catch (Exception e1) {
 					// TODO Auto-generated catch block
-						JOptionPane.showMessageDialog(btnRegister, "Record already exists!");
+					JOptionPane.showMessageDialog(btnRegister,"Record already exist!");
 					e1.printStackTrace();
 				}
 			}
